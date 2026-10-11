@@ -80,23 +80,24 @@ namespace TallerAutomotriz.Oficina
             Pausar();
         }
 
-        // Atiende la placa al inicio y avanza la posicion de la fila.
+        // Atiende y quita de la lista la placa que esta al inicio.
         private void AtenderProximoVehiculo()
         {
             Console.Clear();
 
-            if (inicioFila >= vehiculosEnFila.Count)
+            if (vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
-                Pausar();
-                return;
             }
+            else
+            {
+                // La posicion cero es el primer elemento de la lista.
+                string placa = vehiculosEnFila[0];
+                Console.WriteLine($"Vehiculo atendido: {placa}");
 
-            string placa = vehiculosEnFila[inicioFila];
-            Console.WriteLine($"Vehiculo atendido: {placa}");
-
-            // Avanza al siguiente elemento para retirar el atendido de la fila.
-            inicioFila = inicioFila + 1;
+                // Quita de la lista la placa que acaba de ser atendida.
+                vehiculosEnFila.RemoveAt(0);
+            }
 
             Pausar();
         }
@@ -106,13 +107,13 @@ namespace TallerAutomotriz.Oficina
         {
             Console.Clear();
 
-            if (inicioFila >= vehiculosEnFila.Count)
+            if (vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
             }
             else
             {
-                string placa = vehiculosEnFila[inicioFila];
+                string placa = vehiculosEnFila[0];
                 Console.WriteLine($"Proximo vehiculo: {placa}");
             }
 
@@ -124,7 +125,7 @@ namespace TallerAutomotriz.Oficina
         {
             Console.Clear();
 
-            if (inicioFila >= vehiculosEnFila.Count)
+            if (vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
                 Pausar();
@@ -142,14 +143,14 @@ namespace TallerAutomotriz.Oficina
                     Console.WriteLine($"Placa: {placa}");
                 }
 
-                // Aumenta el numero de posicion para revisar el siguiente elemento.
+                // Aumenta la posicion para revisar el siguiente elemento.
                 posicion = posicion + 1;
             }
 
             Pausar();
         }
 
-        // Resta las posiciones atendidas del total de posiciones guardadas.
+        // Muestra cuantos vehiculos siguen esperando en la lista.
         private void MostrarTotalVehiculos()
         {
             Console.Clear();

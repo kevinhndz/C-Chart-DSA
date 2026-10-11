@@ -18,7 +18,7 @@ namespace TallerAutomotriz
                 Console.WriteLine("=================================");
                 Console.WriteLine("1. Clientes y vehiculos");
                 Console.WriteLine("2. Ordenes de servicio");
-                Console.WriteLine("3. Atencion de vehiculos");
+                Console.WriteLine("3. Cola de atencion");
                 Console.WriteLine("4. Historial");
                 Console.WriteLine("5. Salir");
                 Console.WriteLine("=================================");
@@ -42,9 +42,10 @@ namespace TallerAutomotriz
                         break;
 
                     case 3:
-                        Console.WriteLine(
-                            "Modulo de atencion pendiente de implementar.");
-                        Console.ReadKey();
+                        MenuColaAtencion menuCola =
+                            new MenuColaAtencion();
+
+                        menuCola.MostrarMenu();
                         break;
 
                     case 4:

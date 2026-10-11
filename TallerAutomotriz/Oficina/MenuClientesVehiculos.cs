@@ -222,12 +222,16 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.Write(mensaje);
 
-                if (int.TryParse(Console.ReadLine(), out valor))
+                string? textoIngresado = Console.ReadLine();
+
+                if (int.TryParse(textoIngresado, out valor))
                 {
                     return valor;
                 }
-
-                Console.WriteLine("Debe ingresar un número válido.");
+                else
+                {
+                    Console.WriteLine("Debe ingresar un número válido.");
+                }
             }
         }
 

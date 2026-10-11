@@ -376,12 +376,16 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.Write(mensaje);
 
-                if (int.TryParse(Console.ReadLine(), out valor))
+                string? textoIngresado = Console.ReadLine();
+
+                if (int.TryParse(textoIngresado, out valor))
                 {
                     return valor;
                 }
-
-                Console.WriteLine("Debe ingresar un numero valido.");
+                else
+                {
+                    Console.WriteLine("Debe ingresar un numero valido.");
+                }
             }
         }
 
@@ -431,12 +435,16 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.Write(mensaje);
 
-                if (decimal.TryParse(Console.ReadLine(), out valor) && valor >= 0)
+                string? textoIngresado = Console.ReadLine();
+
+                if (decimal.TryParse(textoIngresado, out valor) && valor >= 0)
                 {
                     return valor;
                 }
-
-                Console.WriteLine("Ingrese un costo valido mayor o igual a cero.");
+                else
+                {
+                    Console.WriteLine("Ingrese un costo valido mayor o igual a cero.");
+                }
             }
         }
 

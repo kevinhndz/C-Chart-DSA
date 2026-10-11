@@ -1,0 +1,16 @@
+# Carpetas de compilacion y cache (equivalentes al __pycache__)
+[Bb]in/
+[Oo]bj/
+
+# Configuraciones locales de Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache

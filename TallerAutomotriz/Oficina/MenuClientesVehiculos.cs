@@ -177,8 +177,7 @@ namespace TallerAutomotriz.Oficina
                     break;
 
                 default:
-                    Console.WriteLine("Opcion no va " +
-                        "lida.");
+                    Console.WriteLine("Opcion no valida.");
                     Pausar();
                     break;
             }

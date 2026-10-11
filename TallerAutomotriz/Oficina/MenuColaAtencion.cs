@@ -27,6 +27,7 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("1. Agregar vehiculo a la fila");
                 Console.WriteLine("2. Atender proximo vehiculo");
                 Console.WriteLine("3. Ver proximo vehiculo");
+                Console.WriteLine("4. Mostrar vehiculos en espera");
                 Console.WriteLine("6. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
@@ -44,6 +45,10 @@ namespace TallerAutomotriz.Oficina
 
                     case 3:
                         VerProximoVehiculo();
+                        break;
+
+                    case 4:
+                        MostrarVehiculosEnEspera();
                         break;
 
                     case 6:
@@ -104,6 +109,36 @@ namespace TallerAutomotriz.Oficina
             {
                 string placa = vehiculosEnFila[inicioFila];
                 Console.WriteLine($"Proximo vehiculo: {placa}");
+            }
+
+            Pausar();
+        }
+
+        // Recorre la lista y muestra las placas que todavia esperan.
+        private void MostrarVehiculosEnEspera()
+        {
+            Console.Clear();
+
+            if (inicioFila >= vehiculosEnFila.Count)
+            {
+                Console.WriteLine("No hay vehiculos esperando.");
+                Pausar();
+                return;
+            }
+
+            Console.WriteLine("VEHICULOS EN ESPERA");
+
+            int posicion = 0;
+
+            foreach (string placa in vehiculosEnFila)
+            {
+                if (posicion >= inicioFila)
+                {
+                    Console.WriteLine($"Placa: {placa}");
+                }
+
+                // Aumenta el numero de posicion para revisar el siguiente elemento.
+                posicion = posicion + 1;
             }
 
             Pausar();

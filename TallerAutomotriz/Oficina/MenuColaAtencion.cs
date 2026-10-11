@@ -25,6 +25,8 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("         COLA DE ATENCION");
                 Console.WriteLine("=================================");
                 Console.WriteLine("1. Agregar vehiculo a la fila");
+                Console.WriteLine("2. Atender proximo vehiculo");
+                Console.WriteLine("3. Ver proximo vehiculo");
                 Console.WriteLine("6. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
@@ -34,6 +36,14 @@ namespace TallerAutomotriz.Oficina
                 {
                     case 1:
                         AgregarVehiculo();
+                        break;
+
+                    case 2:
+                        AtenderProximoVehiculo();
+                        break;
+
+                    case 3:
+                        VerProximoVehiculo();
                         break;
 
                     case 6:
@@ -57,6 +67,45 @@ namespace TallerAutomotriz.Oficina
             vehiculosEnFila.Add(placa);
 
             Console.WriteLine("Vehiculo agregado al final de la fila.");
+            Pausar();
+        }
+
+        // Atiende la placa al inicio y avanza la posicion de la fila.
+        private void AtenderProximoVehiculo()
+        {
+            Console.Clear();
+
+            if (inicioFila >= vehiculosEnFila.Count)
+            {
+                Console.WriteLine("No hay vehiculos esperando.");
+                Pausar();
+                return;
+            }
+
+            string placa = vehiculosEnFila[inicioFila];
+            Console.WriteLine($"Vehiculo atendido: {placa}");
+
+            // Avanza al siguiente elemento para retirar el atendido de la fila.
+            inicioFila = inicioFila + 1;
+
+            Pausar();
+        }
+
+        // Muestra la placa al inicio sin cambiar la posicion de la fila.
+        private void VerProximoVehiculo()
+        {
+            Console.Clear();
+
+            if (inicioFila >= vehiculosEnFila.Count)
+            {
+                Console.WriteLine("No hay vehiculos esperando.");
+            }
+            else
+            {
+                string placa = vehiculosEnFila[inicioFila];
+                Console.WriteLine($"Proximo vehiculo: {placa}");
+            }
+
             Pausar();
         }
 

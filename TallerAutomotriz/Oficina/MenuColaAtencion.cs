@@ -28,6 +28,7 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("2. Atender proximo vehiculo");
                 Console.WriteLine("3. Ver proximo vehiculo");
                 Console.WriteLine("4. Mostrar vehiculos en espera");
+                Console.WriteLine("5. Mostrar total de vehiculos en la fila");
                 Console.WriteLine("6. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
@@ -49,6 +50,10 @@ namespace TallerAutomotriz.Oficina
 
                     case 4:
                         MostrarVehiculosEnEspera();
+                        break;
+
+                    case 5:
+                        MostrarTotalVehiculos();
                         break;
 
                     case 6:
@@ -140,6 +145,17 @@ namespace TallerAutomotriz.Oficina
                 // Aumenta el numero de posicion para revisar el siguiente elemento.
                 posicion = posicion + 1;
             }
+
+            Pausar();
+        }
+
+        // Resta las posiciones atendidas del total de posiciones guardadas.
+        private void MostrarTotalVehiculos()
+        {
+            Console.Clear();
+
+            int totalEnEspera = vehiculosEnFila.Count - inicioFila;
+            Console.WriteLine($"Vehiculos esperando: {totalEnEspera}");
 
             Pausar();
         }

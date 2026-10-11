@@ -35,9 +35,10 @@ namespace TallerAutomotriz
                         break;
 
                     case 2:
-                        Console.WriteLine(
-                            "Modulo de ordenes pendiente de implementar.");
-                        Console.ReadKey();
+                        MenuOrdenServicio menuOrdenes =
+                            new MenuOrdenServicio();
+
+                        menuOrdenes.MostrarMenu();
                         break;
 
                     case 3:

@@ -9,9 +9,6 @@ namespace TallerAutomotriz.Oficina
         private readonly List<string> vehiculosEnFila =
             new List<string>();
 
-        // Indica la posicion del primer vehiculo que sigue esperando.
-        private int inicioFila = 0;
-
         // Muestra el menu de la fila de atencion.
         public void MostrarMenu()
         {
@@ -120,7 +117,7 @@ namespace TallerAutomotriz.Oficina
             Pausar();
         }
 
-        // Recorre la lista y muestra las placas que todavia esperan.
+        // Recorre la lista y muestra todas las placas que esperan.
         private void MostrarVehiculosEnEspera()
         {
             Console.Clear();
@@ -134,17 +131,9 @@ namespace TallerAutomotriz.Oficina
 
             Console.WriteLine("VEHICULOS EN ESPERA");
 
-            int posicion = 0;
-
             foreach (string placa in vehiculosEnFila)
             {
-                if (posicion >= inicioFila)
-                {
-                    Console.WriteLine($"Placa: {placa}");
-                }
-
-                // Aumenta la posicion para revisar el siguiente elemento.
-                posicion = posicion + 1;
+                Console.WriteLine($"Placa: {placa}");
             }
 
             Pausar();
@@ -155,7 +144,7 @@ namespace TallerAutomotriz.Oficina
         {
             Console.Clear();
 
-            int totalEnEspera = vehiculosEnFila.Count - inicioFila;
+            int totalEnEspera = vehiculosEnFila.Count;
             Console.WriteLine($"Vehiculos esperando: {totalEnEspera}");
 
             Pausar();

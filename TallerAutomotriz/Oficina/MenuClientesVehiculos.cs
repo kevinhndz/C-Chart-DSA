@@ -20,15 +20,15 @@ namespace TallerAutomotriz.Oficina
                 Console.Clear();
 
                 Console.WriteLine("=================================");
-                Console.WriteLine("      CLIENTES Y VEHICULOS");
+                Console.WriteLine("      CLIENTES Y VEHÍCULOS");
                 Console.WriteLine("=================================");
                 Console.WriteLine("1. Registrar cliente y vehículo");
                 Console.WriteLine("2. Mostrar registros");
                 Console.WriteLine("3. Buscar registro");
-                Console.WriteLine("4. Regresar al menu principal");
+                Console.WriteLine("4. Regresar al menú principal");
                 Console.WriteLine("=================================");
 
-                int opcion = LeerEntero("Seleccione una opcion: ");
+                int opcion = LeerEntero("Seleccione una opción: ");
 
                 switch (opcion)
                 {
@@ -49,7 +49,7 @@ namespace TallerAutomotriz.Oficina
                         break;
 
                     default:
-                        Console.WriteLine("Opcion no valida.");
+                        Console.WriteLine("Opción no válida.");
                         Pausar();
                         break;
                 }
@@ -61,25 +61,25 @@ namespace TallerAutomotriz.Oficina
             Console.Clear();
 
             Console.WriteLine("=================================");
-            Console.WriteLine("   REGISTRAR CLIENTE Y VEHICULO");
+            Console.WriteLine("   REGISTRAR CLIENTE Y VEHÍCULO");
             Console.WriteLine("=================================");
 
-            int codigoCliente = LeerEntero("Codigo del cliente: ");
+            int codigoCliente = LeerEntero("Código del cliente: ");
 
             // Evita registrar dos clientes con el mismo codigo.
             if (registros.Any(r => r.CodigoCliente == codigoCliente))
             {
-                Console.WriteLine("Ya existe un cliente con ese codigo.");
+                Console.WriteLine("Ya existe un cliente con ese código.");
                 Pausar();
                 return;
             }
 
             string nombreCliente = LeerTexto("Nombre del cliente: ");
-            string telefonoCliente = LeerTexto("Telefono del cliente: ");
-            string placaVehiculo = LeerTexto("Placa del vehiculo: ").ToUpper();
-            string marcaVehiculo = LeerTexto("Marca del vehiculo: ");
-            string modeloVehiculo = LeerTexto("Modelo del vehiculo: ");
-            int anioVehiculo = LeerEntero("Año del vehiculo: ");
+            string telefonoCliente = LeerTexto("Teléfono del cliente: ");
+            string placaVehiculo = LeerTexto("Placa del vehículo: ").ToUpper();
+            string marcaVehiculo = LeerTexto("Marca del vehículo: ");
+            string modeloVehiculo = LeerTexto("Modelo del vehículo: ");
+            int anioVehiculo = LeerEntero("Año del vehículo: ");
 
             DateTime fechaVehiculo = LeerFecha(
                 "Fecha de registro (dd/MM/yyyy): ");
@@ -133,18 +133,26 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("=================================");
             Console.WriteLine("        BUSCAR REGISTRO");
             Console.WriteLine("=================================");
-            Console.WriteLine("1. Buscar por codigo de cliente");
+            Console.WriteLine("1. Buscar por código de cliente");
             Console.WriteLine("2. Buscar por placa");
             Console.WriteLine("3. Regresar");
 
-            int opcion = LeerEntero("Seleccione una opcion: ");
+            int opcion = LeerEntero("Seleccione una opción: ");
 
             switch (opcion)
             {
                 case 1:
-                    int codigo = LeerEntero("Ingrese el codigo del cliente: ");
+                    int codigo = LeerEntero("Ingrese el código del cliente: ");
 
-                    ClienteVehiculo registroPorCodigo = registros.FirstOrDefault( r => r.CodigoCliente == codigo);
+                    ClienteVehiculo? registroPorCodigo = null;
+
+                    foreach (ClienteVehiculo registro in registros)
+                    {
+                        if (registro.CodigoCliente == codigo)
+                        {
+                            registroPorCodigo = registro;
+                        }
+                    }
 
                     MostrarResultadoBusqueda(registroPorCodigo);
                     break;
@@ -152,7 +160,15 @@ namespace TallerAutomotriz.Oficina
                 case 2:
                     string placa = LeerTexto("Ingrese la placa del vehículo: ").ToUpper();
 
-                    ClienteVehiculo registroPorPlaca = registros.FirstOrDefault(r => r.PlacaVehiculo == placa);
+                    ClienteVehiculo? registroPorPlaca = null;
+
+                    foreach (ClienteVehiculo registro in registros)
+                    {
+                        if (registro.PlacaVehiculo == placa)
+                        {
+                            registroPorPlaca = registro;
+                        }
+                    }
 
                     MostrarResultadoBusqueda(registroPorPlaca);
                     break;
@@ -161,13 +177,14 @@ namespace TallerAutomotriz.Oficina
                     break;
 
                 default:
-                    Console.WriteLine("Opcion no valida.");
+                    Console.WriteLine("Opcion no va " +
+                        "lida.");
                     Pausar();
                     break;
             }
         }
 
-        private void MostrarResultadoBusqueda(ClienteVehiculo registro)
+        private void MostrarResultadoBusqueda(ClienteVehiculo? registro)
         {
             Console.Clear();
 
@@ -185,9 +202,9 @@ namespace TallerAutomotriz.Oficina
 
         private void MostrarRegistro(ClienteVehiculo registro)
         {
-            Console.WriteLine($"Codigo del cliente: {registro.CodigoCliente}");
+            Console.WriteLine($"Código del cliente: {registro.CodigoCliente}");
             Console.WriteLine($"Nombre: {registro.NombreCliente}");
-            Console.WriteLine($"Telefono: {registro.TelefonoCliente}");
+            Console.WriteLine($"Teléfono: {registro.TelefonoCliente}");
             Console.WriteLine($"Placa: {registro.PlacaVehiculo}");
             Console.WriteLine($"Marca: {registro.MarcaVehiculo}");
             Console.WriteLine($"Modelo: {registro.ModeloVehiculo}");
@@ -211,14 +228,14 @@ namespace TallerAutomotriz.Oficina
                     return valor;
                 }
 
-                Console.WriteLine("Debe ingresar un numero valido.");
+                Console.WriteLine("Debe ingresar un número válido.");
             }
         }
 
-        // Lee un texto y no acepta vacios ni solo espacios.
+        // Lee un texto y no acepta vacíos ni solo espacios.
         private string LeerTexto(string mensaje)
         {
-            string valor;
+            string? valor;
 
             do
             {
@@ -235,7 +252,7 @@ namespace TallerAutomotriz.Oficina
             return valor.Trim();
         }
 
-        // Lee una fecha y repite la peticion si el formato no es válido.
+        // Lee una fecha y repite la petición si el formato no es válido.
         private DateTime LeerFecha(string mensaje)
         {
             DateTime fecha;
@@ -249,7 +266,7 @@ namespace TallerAutomotriz.Oficina
                     return fecha;
                 }
 
-                Console.WriteLine("Formato invalido. Ejemplo: 25/09/2026");
+                Console.WriteLine("Formato inválido. Ejemplo: 25/09/2026");
             }
         }
 

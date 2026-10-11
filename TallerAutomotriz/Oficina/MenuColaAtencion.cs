@@ -5,9 +5,9 @@ namespace TallerAutomotriz.Oficina
 {
     internal class MenuColaAtencion
     {
-        // Guarda las placas en el orden en que llegaron.
-        private readonly List<string> vehiculosEnFila =
-            new List<string>();
+        // Queue guarda las placas en orden de llegada para atenderlas FIFO.
+        private readonly Queue<string> vehiculosEnFila =
+            new Queue<string>();
 
         // Muestra el menu de la fila de atencion.
         public void MostrarMenu()
@@ -65,19 +65,19 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Pide una placa y la agrega despues de las que ya estan esperando.
+        // Pide una placa y Enqueue la agrega al final de la cola.
         private void AgregarVehiculo()
         {
             Console.Clear();
 
             string placa = LeerTexto("Placa del vehiculo: ").ToUpper();
-            vehiculosEnFila.Add(placa);
+            vehiculosEnFila.Enqueue(placa);
 
             Console.WriteLine("Vehiculo agregado al final de la fila.");
             Pausar();
         }
 
-        // Atiende y quita de la lista la placa que esta al inicio.
+        // Atiende y quita de la cola la primera placa que llego.
         private void AtenderProximoVehiculo()
         {
             Console.Clear();
@@ -88,18 +88,15 @@ namespace TallerAutomotriz.Oficina
             }
             else
             {
-                // La posicion cero es el primer elemento de la lista.
-                string placa = vehiculosEnFila[0];
+                // Dequeue devuelve y quita la primera placa de la cola.
+                string placa = vehiculosEnFila.Dequeue();
                 Console.WriteLine($"Vehiculo atendido: {placa}");
-
-                // Quita de la lista la placa que acaba de ser atendida.
-                vehiculosEnFila.RemoveAt(0);
             }
 
             Pausar();
         }
 
-        // Muestra la placa al inicio sin cambiar la posicion de la fila.
+        // Peek muestra la primera placa sin quitarla de la cola.
         private void VerProximoVehiculo()
         {
             Console.Clear();
@@ -110,14 +107,14 @@ namespace TallerAutomotriz.Oficina
             }
             else
             {
-                string placa = vehiculosEnFila[0];
+                string placa = vehiculosEnFila.Peek();
                 Console.WriteLine($"Proximo vehiculo: {placa}");
             }
 
             Pausar();
         }
 
-        // Recorre la lista y muestra todas las placas que esperan.
+        // Recorre la cola y muestra todas las placas que esperan.
         private void MostrarVehiculosEnEspera()
         {
             Console.Clear();
@@ -139,7 +136,7 @@ namespace TallerAutomotriz.Oficina
             Pausar();
         }
 
-        // Muestra cuantos vehiculos siguen esperando en la lista.
+        // Muestra cuantos vehiculos siguen esperando en la cola.
         private void MostrarTotalVehiculos()
         {
             Console.Clear();

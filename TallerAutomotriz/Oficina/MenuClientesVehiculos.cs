@@ -236,19 +236,18 @@ namespace TallerAutomotriz.Oficina
         {
             string? valor;
 
-            do
+            while (true)
             {
                 Console.Write(mensaje);
                 valor = Console.ReadLine();
 
-                if (string.IsNullOrWhiteSpace(valor))
+                if (!string.IsNullOrWhiteSpace(valor))
                 {
-                    Console.WriteLine("Este campo es obligatorio.");
+                    return valor.Trim();
                 }
-            }
-            while (string.IsNullOrWhiteSpace(valor));
 
-            return valor.Trim();
+                Console.WriteLine("Este campo es obligatorio.");
+            }
         }
 
         // Lee una fecha y repite la petición si el formato no es válido.

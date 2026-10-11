@@ -35,9 +35,10 @@ namespace TallerAutomotriz
                         break;
 
                     case 2:
-                        Console.WriteLine(
-                            "Modulo de ordenes pendiente de implementar.");
-                        Console.ReadKey();
+                        MenuOrdenServicio menuOrdenes =
+                            new MenuOrdenServicio();
+
+                        menuOrdenes.MostrarMenu();
                         break;
 
                     case 3:
@@ -73,12 +74,16 @@ namespace TallerAutomotriz
             {
                 Console.Write(mensaje);
 
-                if (int.TryParse(Console.ReadLine(), out valor))
+                string? textoIngresado = Console.ReadLine();
+
+                if (int.TryParse(textoIngresado, out valor))
                 {
                     return valor;
                 }
-
-                Console.WriteLine("Debe ingresar un número valido.");
+                else
+                {
+                    Console.WriteLine("Debe ingresar un número valido.");
+                }
             }
         }
     }

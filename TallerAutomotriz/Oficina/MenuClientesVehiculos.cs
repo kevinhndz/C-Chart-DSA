@@ -31,7 +31,10 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("1. Registrar cliente y vehículo");
                 Console.WriteLine("2. Mostrar registros");
                 Console.WriteLine("3. Buscar registro");
-                Console.WriteLine("4. Regresar al menú principal");
+                Console.WriteLine("4. Modificar registro");
+                Console.WriteLine("5. Eliminar registro");
+                Console.WriteLine("6. Mostrar total de registros");
+                Console.WriteLine("7. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
                 int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opción: ");
@@ -51,6 +54,18 @@ namespace TallerAutomotriz.Oficina
                         break;
 
                     case 4:
+                        ModificarRegistro();
+                        break;
+
+                    case 5:
+                        EliminarRegistro();
+                        break;
+
+                    case 6:
+                        MostrarTotalRegistros();
+                        break;
+
+                    case 7:
                         continuar = false;
                         break;
 
@@ -187,6 +202,77 @@ namespace TallerAutomotriz.Oficina
                     FuncionesAuxiliares.Pausar();
                     break;
             }
+        }
+
+        // Busca por codigo y cambia los datos del objeto encontrado en la lista.
+        private void ModificarRegistro()
+        {
+            FuncionesAuxiliares.LimpiarPantalla();
+            int codigo = FuncionesAuxiliares.LeerEntero("Codigo del registro que desea modificar: ");
+            ClienteVehiculo? registroEncontrado = null;
+
+            foreach (ClienteVehiculo registro in repository.registros)
+            {
+                if (registro.CodigoCliente == codigo)
+                {
+                    registroEncontrado = registro;
+                }
+            }
+
+            if (registroEncontrado == null)
+            {
+                Console.WriteLine("No se encontro ningun registro.");
+            }
+            else
+            {
+                // El codigo conserva la identidad del registro que se esta modificando.
+                registroEncontrado.NombreCliente = FuncionesAuxiliares.LeerTexto("Nombre del cliente: ");
+                registroEncontrado.TelefonoCliente = FuncionesAuxiliares.LeerTexto("Telefono del cliente: ");
+                registroEncontrado.PlacaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
+                registroEncontrado.MarcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehiculo: ");
+                registroEncontrado.ModeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehiculo: ");
+                registroEncontrado.AnioVehiculo = FuncionesAuxiliares.LeerEntero("Anio del vehiculo: ");
+                registroEncontrado.FechaVehiculo = FuncionesAuxiliares.LeerFecha("Fecha de registro (dd/MM/yyyy): ");
+                Console.WriteLine("Registro modificado exitosamente.");
+            }
+
+            FuncionesAuxiliares.Pausar();
+        }
+
+        // Encuentra el objeto y lo retira despues de terminar el recorrido.
+        private void EliminarRegistro()
+        {
+            FuncionesAuxiliares.LimpiarPantalla();
+            int codigo = FuncionesAuxiliares.LeerEntero("Codigo del registro que desea eliminar: ");
+            ClienteVehiculo? registroEncontrado = null;
+
+            foreach (ClienteVehiculo registro in repository.registros)
+            {
+                if (registro.CodigoCliente == codigo)
+                {
+                    registroEncontrado = registro;
+                }
+            }
+
+            if (registroEncontrado == null)
+            {
+                Console.WriteLine("No se encontro ningun registro.");
+            }
+            else
+            {
+                repository.registros.Remove(registroEncontrado);
+                Console.WriteLine("Registro eliminado exitosamente.");
+            }
+
+            FuncionesAuxiliares.Pausar();
+        }
+
+        // Count devuelve cuantos registros de clientes y vehiculos hay en la lista.
+        private void MostrarTotalRegistros()
+        {
+            FuncionesAuxiliares.LimpiarPantalla();
+            Console.WriteLine($"Total de registros: {repository.registros.Count}");
+            FuncionesAuxiliares.Pausar();
         }
 
         private void MostrarResultadoBusqueda(ClienteVehiculo? registro)

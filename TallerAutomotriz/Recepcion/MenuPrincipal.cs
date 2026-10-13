@@ -54,9 +54,8 @@ namespace TallerAutomotriz
                         break;
 
                     case 4:
-                        Console.WriteLine(
-                            "Modulo de historial pendiente de implementar.");
-                        FuncionesAuxiliares.Pausar();
+                        MenuHistorial menuHistorial = new MenuHistorial(repository);
+                        menuHistorial.MostrarMenu();
                         break;
 
                     case 5:

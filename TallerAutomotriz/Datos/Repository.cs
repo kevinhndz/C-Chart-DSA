@@ -9,6 +9,8 @@ namespace TallerAutomotriz.Datos
         // readonly evita reemplazar las colecciones, pero permite agregar y quitar datos.
         public readonly List<ClienteVehiculo> registros = new List<ClienteVehiculo>();
         public readonly List<OrdenServicio> ordenes = new List<OrdenServicio>();
+        // Stack coloca la ultima operacion arriba de las anteriores (LIFO).
+        public readonly Stack<string> historial = new Stack<string>();
         public readonly Queue<string> vehiculosEnFila = new Queue<string>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+using TallerAutomotriz.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TallerAutomotriz.Formularios;
@@ -17,7 +18,7 @@ namespace TallerAutomotriz.Oficina
 
             while (continuar)
             {
-                Console.Clear();
+                FuncionesAuxiliares.LimpiarPantalla();
 
                 Console.WriteLine("=================================");
                 Console.WriteLine("      CLIENTES Y VEHÍCULOS");
@@ -28,7 +29,7 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("4. Regresar al menú principal");
                 Console.WriteLine("=================================");
 
-                int opcion = LeerEntero("Seleccione una opción: ");
+                int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opción: ");
 
                 switch (opcion)
                 {
@@ -50,7 +51,7 @@ namespace TallerAutomotriz.Oficina
 
                     default:
                         Console.WriteLine("Opción no válida.");
-                        Pausar();
+                        FuncionesAuxiliares.Pausar();
                         break;
                 }
             }
@@ -58,30 +59,30 @@ namespace TallerAutomotriz.Oficina
 
         private void Registrar()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("   REGISTRAR CLIENTE Y VEHÍCULO");
             Console.WriteLine("=================================");
 
-            int codigoCliente = LeerEntero("Código del cliente: ");
+            int codigoCliente = FuncionesAuxiliares.LeerEntero("Código del cliente: ");
 
             // Evita registrar dos clientes con el mismo codigo.
             if (registros.Any(r => r.CodigoCliente == codigoCliente))
             {
                 Console.WriteLine("Ya existe un cliente con ese código.");
-                Pausar();
+                FuncionesAuxiliares.Pausar();
                 return;
             }
 
-            string nombreCliente = LeerTexto("Nombre del cliente: ");
-            string telefonoCliente = LeerTexto("Teléfono del cliente: ");
-            string placaVehiculo = LeerTexto("Placa del vehículo: ").ToUpper();
-            string marcaVehiculo = LeerTexto("Marca del vehículo: ");
-            string modeloVehiculo = LeerTexto("Modelo del vehículo: ");
-            int anioVehiculo = LeerEntero("Año del vehículo: ");
+            string nombreCliente = FuncionesAuxiliares.LeerTexto("Nombre del cliente: ");
+            string telefonoCliente = FuncionesAuxiliares.LeerTexto("Teléfono del cliente: ");
+            string placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehículo: ").ToUpper();
+            string marcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehículo: ");
+            string modeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehículo: ");
+            int anioVehiculo = FuncionesAuxiliares.LeerEntero("Año del vehículo: ");
 
-            DateTime fechaVehiculo = LeerFecha(
+            DateTime fechaVehiculo = FuncionesAuxiliares.LeerFecha(
                 "Fecha de registro (dd/MM/yyyy): ");
 
             ClienteVehiculo nuevoRegistro = new ClienteVehiculo(
@@ -99,12 +100,12 @@ namespace TallerAutomotriz.Oficina
 
             Console.WriteLine();
             Console.WriteLine("Registro agregado exitosamente.");
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         private void MostrarRegistros()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("      REGISTROS DE CLIENTES");
@@ -113,7 +114,7 @@ namespace TallerAutomotriz.Oficina
             if (registros.Count == 0)
             {
                 Console.WriteLine("No hay registros actualmente.");
-                Pausar();
+                FuncionesAuxiliares.Pausar();
                 return;
             }
 
@@ -123,12 +124,12 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("---------------------------------");
             }
 
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         private void MostrarMenuBusqueda()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("        BUSCAR REGISTRO");
@@ -137,12 +138,12 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("2. Buscar por placa");
             Console.WriteLine("3. Regresar");
 
-            int opcion = LeerEntero("Seleccione una opción: ");
+            int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opción: ");
 
             switch (opcion)
             {
                 case 1:
-                    int codigo = LeerEntero("Ingrese el código del cliente: ");
+                    int codigo = FuncionesAuxiliares.LeerEntero("Ingrese el código del cliente: ");
 
                     ClienteVehiculo? registroPorCodigo = null;
 
@@ -158,7 +159,7 @@ namespace TallerAutomotriz.Oficina
                     break;
 
                 case 2:
-                    string placa = LeerTexto("Ingrese la placa del vehículo: ").ToUpper();
+                    string placa = FuncionesAuxiliares.LeerTexto("Ingrese la placa del vehículo: ").ToUpper();
 
                     ClienteVehiculo? registroPorPlaca = null;
 
@@ -178,14 +179,14 @@ namespace TallerAutomotriz.Oficina
 
                 default:
                     Console.WriteLine("Opcion no valida.");
-                    Pausar();
+                    FuncionesAuxiliares.Pausar();
                     break;
             }
         }
 
         private void MostrarResultadoBusqueda(ClienteVehiculo? registro)
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             if (registro == null)
             {
@@ -196,7 +197,7 @@ namespace TallerAutomotriz.Oficina
                 MostrarRegistro(registro);
             }
 
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         private void MostrarRegistro(ClienteVehiculo registro)
@@ -211,72 +212,6 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine(
                 $"Fecha de registro: " +
                 $"{registro.FechaVehiculo:dd/MM/yyyy}");
-        }
-
-        // Lee un número entero y repite la petición si el texto no es válido.
-        private int LeerEntero(string mensaje)
-        {
-            int valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                string? textoIngresado = Console.ReadLine();
-
-                if (int.TryParse(textoIngresado, out valor))
-                {
-                    return valor;
-                }
-                else
-                {
-                    Console.WriteLine("Debe ingresar un número válido.");
-                }
-            }
-        }
-
-        // Lee un texto y no acepta vacíos ni solo espacios.
-        private string LeerTexto(string mensaje)
-        {
-            string? valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-                valor = Console.ReadLine();
-
-                if (!string.IsNullOrWhiteSpace(valor))
-                {
-                    return valor.Trim();
-                }
-
-                Console.WriteLine("Este campo es obligatorio.");
-            }
-        }
-
-        // Lee una fecha y repite la petición si el formato no es válido.
-        private DateTime LeerFecha(string mensaje)
-        {
-            DateTime fecha;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                if (DateTime.TryParse(Console.ReadLine(), out fecha))
-                {
-                    return fecha;
-                }
-
-                Console.WriteLine("Formato inválido. Ejemplo: 25/09/2026");
-            }
-        }
-
-        private void Pausar()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Presione una tecla para continuar...");
-            Console.ReadKey();
         }
     }
 }

@@ -1,3 +1,4 @@
+using TallerAutomotriz.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace TallerAutomotriz.Oficina
 
             while (continuar)
             {
-                Console.Clear();
+                FuncionesAuxiliares.LimpiarPantalla();
 
                 Console.WriteLine("=================================");
                 Console.WriteLine("      ORDENES DE SERVICIO");
@@ -32,7 +33,7 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("8. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
-                int opcion = LeerEntero("Seleccione una opcion: ");
+                int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opcion: ");
 
                 switch (opcion)
                 {
@@ -70,7 +71,7 @@ namespace TallerAutomotriz.Oficina
 
                     default:
                         Console.WriteLine("Opcion no valida.");
-                        Pausar();
+                        FuncionesAuxiliares.Pausar();
                         break;
                 }
             }
@@ -79,28 +80,28 @@ namespace TallerAutomotriz.Oficina
         // Pide los datos de una orden y la agrega a la lista.
         private void RegistrarOrden()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("   REGISTRAR ORDEN DE SERVICIO");
             Console.WriteLine("=================================");
 
-            string numeroOrden = LeerTexto("Numero de orden: ");
+            string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de orden: ");
 
             if (ordenes.Any(o => o.numeroOrden == numeroOrden))
             {
                 Console.WriteLine("Ya existe una orden con ese numero.");
-                Pausar();
+                FuncionesAuxiliares.Pausar();
                 return;
             }
 
-            string codigoCliente = LeerTexto("Codigo del cliente: ");
-            string placaVehiculo = LeerTexto("Placa del vehiculo: ").ToUpper();
-            DateTime fechaIngreso = LeerFecha("Fecha de ingreso (dd/MM/yyyy): ");
-            string tipoServicio = LeerTexto("Tipo de servicio: ");
-            string descripcion = LeerTexto("Descripcion del problema: ");
-            string mecanicoAsignado = LeerTexto("Mecanico asignado: ");
-            decimal costoEstimado = LeerDecimal("Costo estimado: ");
+            string codigoCliente = FuncionesAuxiliares.LeerTexto("Codigo del cliente: ");
+            string placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
+            DateTime fechaIngreso = FuncionesAuxiliares.LeerFecha("Fecha de ingreso (dd/MM/yyyy): ");
+            string tipoServicio = FuncionesAuxiliares.LeerTexto("Tipo de servicio: ");
+            string descripcion = FuncionesAuxiliares.LeerTexto("Descripcion del problema: ");
+            string mecanicoAsignado = FuncionesAuxiliares.LeerTexto("Mecanico asignado: ");
+            decimal costoEstimado = FuncionesAuxiliares.LeerDecimal("Costo estimado: ");
 
             OrdenServicio nuevaOrden = new OrdenServicio(
                 numeroOrden,
@@ -116,13 +117,13 @@ namespace TallerAutomotriz.Oficina
             ordenes.Add(nuevaOrden);
 
             Console.WriteLine("Orden agregada exitosamente.");
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Recorre la lista y muestra todas las ordenes registradas.
         private void MostrarOrdenes()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("      ORDENES REGISTRADAS");
@@ -131,7 +132,7 @@ namespace TallerAutomotriz.Oficina
             if (ordenes.Count == 0)
             {
                 Console.WriteLine("No hay ordenes actualmente.");
-                Pausar();
+                FuncionesAuxiliares.Pausar();
                 return;
             }
 
@@ -141,13 +142,13 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("---------------------------------");
             }
 
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Presenta las opciones para buscar por codigo de cliente o por placa.
         private void MostrarMenuBusqueda()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("        BUSCAR ORDEN");
@@ -156,12 +157,12 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("2. Buscar por placa");
             Console.WriteLine("3. Regresar");
 
-            int opcion = LeerEntero("Seleccione una opcion: ");
+            int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opcion: ");
 
             switch (opcion)
             {
                 case 1:
-                    string codigo = LeerTexto("Ingrese el codigo del cliente: ");
+                    string codigo = FuncionesAuxiliares.LeerTexto("Ingrese el codigo del cliente: ");
                     bool encontroCodigo = false;
 
                     foreach (OrdenServicio orden in ordenes)
@@ -177,11 +178,11 @@ namespace TallerAutomotriz.Oficina
                     {
                         Console.WriteLine("No se encontro ninguna orden.");
                     }
-                    Pausar();
+                    FuncionesAuxiliares.Pausar();
                     break;
 
                 case 2:
-                    string placa = LeerTexto("Ingrese la placa del vehiculo: ").ToUpper();
+                    string placa = FuncionesAuxiliares.LeerTexto("Ingrese la placa del vehiculo: ").ToUpper();
                     bool encontroPlaca = false;
 
                     foreach (OrdenServicio orden in ordenes)
@@ -197,7 +198,7 @@ namespace TallerAutomotriz.Oficina
                     {
                         Console.WriteLine("No se encontro ninguna orden.");
                     }
-                    Pausar();
+                    FuncionesAuxiliares.Pausar();
                     break;
 
                 case 3:
@@ -205,7 +206,7 @@ namespace TallerAutomotriz.Oficina
 
                 default:
                     Console.WriteLine("Opcion no valida.");
-                    Pausar();
+                    FuncionesAuxiliares.Pausar();
                     break;
             }
         }
@@ -213,9 +214,9 @@ namespace TallerAutomotriz.Oficina
         // Busca las ordenes que tienen la fecha de ingreso indicada.
         private void BuscarPorFecha()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
-            DateTime fecha = LeerFecha("Ingrese la fecha que desea buscar: ");
+            DateTime fecha = FuncionesAuxiliares.LeerFecha("Ingrese la fecha que desea buscar: ");
             bool encontro = false;
 
             foreach (OrdenServicio orden in ordenes)
@@ -231,15 +232,15 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.WriteLine("No se encontro ninguna orden.");
             }
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Busca una orden por su numero y permite cambiar sus datos.
         private void ModificarOrden()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
-            string numeroOrden = LeerTexto("Numero de la orden que desea modificar: ");
+            string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de la orden que desea modificar: ");
             OrdenServicio? orden = null;
 
             foreach (OrdenServicio ordenActual in ordenes)
@@ -253,24 +254,24 @@ namespace TallerAutomotriz.Oficina
             if (orden == null)
             {
                 Console.WriteLine("No se encontro ninguna orden.");
-                Pausar();
+                FuncionesAuxiliares.Pausar();
                 return;
             }
 
             Console.WriteLine("Ingrese los nuevos datos de la orden.");
-            orden.codigoCliente = LeerTexto("Codigo del cliente: ");
-            orden.placaVehiculo = LeerTexto("Placa del vehiculo: ").ToUpper();
-            orden.fechaIngreso = LeerFecha("Fecha de ingreso (dd/MM/yyyy): ");
-            orden.tipoServicio = LeerTexto("Tipo de servicio: ");
-            orden.descripcion = LeerTexto("Descripcion del problema: ");
-            orden.mecanicoAsignado = LeerTexto("Mecanico asignado: ");
-            orden.costoEstimado = LeerDecimal("Costo estimado: ");
+            orden.codigoCliente = FuncionesAuxiliares.LeerTexto("Codigo del cliente: ");
+            orden.placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
+            orden.fechaIngreso = FuncionesAuxiliares.LeerFecha("Fecha de ingreso (dd/MM/yyyy): ");
+            orden.tipoServicio = FuncionesAuxiliares.LeerTexto("Tipo de servicio: ");
+            orden.descripcion = FuncionesAuxiliares.LeerTexto("Descripcion del problema: ");
+            orden.mecanicoAsignado = FuncionesAuxiliares.LeerTexto("Mecanico asignado: ");
+            orden.costoEstimado = FuncionesAuxiliares.LeerDecimal("Costo estimado: ");
             Console.WriteLine("1. Pendiente");
             Console.WriteLine("2. En proceso");
             Console.WriteLine("3. Finalizada");
             Console.WriteLine("4. Cancelada");
 
-            int opcionEstado = LeerEntero("Seleccione el estado: ");
+            int opcionEstado = FuncionesAuxiliares.LeerEntero("Seleccione el estado: ");
 
             switch (opcionEstado)
             {
@@ -293,15 +294,15 @@ namespace TallerAutomotriz.Oficina
             }
 
             Console.WriteLine("Orden modificada exitosamente.");
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Cambia el estado de una orden a Cancelada.
         private void CancelarOrden()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
-            string numeroOrden = LeerTexto("Numero de la orden que desea cancelar: ");
+            string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de la orden que desea cancelar: ");
             OrdenServicio? orden = null;
 
             foreach (OrdenServicio ordenActual in ordenes)
@@ -322,13 +323,13 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("Orden cancelada exitosamente.");
             }
 
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Recorre la lista y muestra las ordenes con estado Pendiente.
         private void MostrarPendientes()
         {
-            Console.Clear();
+            FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
             Console.WriteLine("      ORDENES PENDIENTES");
@@ -350,7 +351,7 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.WriteLine("No se encontro ninguna orden.");
             }
-            Pausar();
+            FuncionesAuxiliares.Pausar();
         }
 
         // Imprime las propiedades de una orden.
@@ -365,95 +366,6 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine($"Mecanico asignado: {orden.mecanicoAsignado}");
             Console.WriteLine($"Costo estimado: {orden.costoEstimado}");
             Console.WriteLine($"Estado: {orden.estadoOrden}");
-        }
-
-        // Lee un numero entero y vuelve a pedirlo si no es valido.
-        private int LeerEntero(string mensaje)
-        {
-            int valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                string? textoIngresado = Console.ReadLine();
-
-                if (int.TryParse(textoIngresado, out valor))
-                {
-                    return valor;
-                }
-                else
-                {
-                    Console.WriteLine("Debe ingresar un numero valido.");
-                }
-            }
-        }
-
-        // Lee un texto obligatorio y quita los espacios de sus extremos.
-        private string LeerTexto(string mensaje)
-        {
-            string? valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-                valor = Console.ReadLine();
-
-                if (!string.IsNullOrWhiteSpace(valor))
-                {
-                    return valor.Trim();
-                }
-
-                Console.WriteLine("Este campo es obligatorio.");
-            }
-        }
-
-        // Lee una fecha y vuelve a pedirla si no es valida.
-        private DateTime LeerFecha(string mensaje)
-        {
-            DateTime fecha;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                if (DateTime.TryParse(Console.ReadLine(), out fecha))
-                {
-                    return fecha;
-                }
-
-                Console.WriteLine("Fecha no valida. Ejemplo: 25/09/2026");
-            }
-        }
-
-        // Lee el costo como decimal y no acepta valores negativos.
-        private decimal LeerDecimal(string mensaje)
-        {
-            decimal valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                string? textoIngresado = Console.ReadLine();
-
-                if (decimal.TryParse(textoIngresado, out valor) && valor >= 0)
-                {
-                    return valor;
-                }
-                else
-                {
-                    Console.WriteLine("Ingrese un costo valido mayor o igual a cero.");
-                }
-            }
-        }
-
-        // Pausa la pantalla para que el usuario pueda leer el resultado.
-        private void Pausar()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Presione una tecla para continuar...");
-            Console.ReadKey();
         }
     }
 }

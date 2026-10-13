@@ -1,4 +1,5 @@
-﻿using System;
+using TallerAutomotriz.Utilidades;
+using System;
 using TallerAutomotriz.Oficina;
 
 namespace TallerAutomotriz
@@ -11,7 +12,7 @@ namespace TallerAutomotriz
 
             while (continuar)
             {
-                Console.Clear();
+                FuncionesAuxiliares.LimpiarPantalla();
 
                 Console.WriteLine("=================================");
                 Console.WriteLine("        TALLER AUTOMOTRIZ");
@@ -23,7 +24,7 @@ namespace TallerAutomotriz
                 Console.WriteLine("5. Salir");
                 Console.WriteLine("=================================");
 
-                int opcion = LeerEntero("Seleccione una opcion: ");
+                int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opcion: ");
 
                 switch (opcion)
                 {
@@ -51,7 +52,7 @@ namespace TallerAutomotriz
                     case 4:
                         Console.WriteLine(
                             "Modulo de historial pendiente de implementar.");
-                        Console.ReadKey();
+                        FuncionesAuxiliares.Pausar();
                         break;
 
                     case 5:
@@ -61,29 +62,8 @@ namespace TallerAutomotriz
 
                     default:
                         Console.WriteLine("Opcion no valida.");
-                        Console.ReadKey();
+                        FuncionesAuxiliares.Pausar();
                         break;
-                }
-            }
-        }
-
-        private int LeerEntero(string mensaje)
-        {
-            int valor;
-
-            while (true)
-            {
-                Console.Write(mensaje);
-
-                string? textoIngresado = Console.ReadLine();
-
-                if (int.TryParse(textoIngresado, out valor))
-                {
-                    return valor;
-                }
-                else
-                {
-                    Console.WriteLine("Debe ingresar un número valido.");
                 }
             }
         }

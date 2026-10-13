@@ -1,3 +1,4 @@
+using TallerAutomotriz.Datos;
 using TallerAutomotriz.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,13 @@ namespace TallerAutomotriz.Oficina
 {
     internal class MenuClientesVehiculos
     {
-        // Lista que almacena temporalmente los clientes y vehículos registrados.
-        private readonly List<ClienteVehiculo> registros =
-            new List<ClienteVehiculo>();
+        private readonly Repository repository;
+
+        // Recibe el mismo almacen que usan los otros menus.
+        public MenuClientesVehiculos(Repository repository)
+        {
+            this.repository = repository;
+        }
 
         public void MostrarMenu()
         {
@@ -68,7 +73,7 @@ namespace TallerAutomotriz.Oficina
             int codigoCliente = FuncionesAuxiliares.LeerEntero("Código del cliente: ");
 
             // Evita registrar dos clientes con el mismo codigo.
-            if (registros.Any(r => r.CodigoCliente == codigoCliente))
+            if (repository.registros.Any(r => r.CodigoCliente == codigoCliente))
             {
                 Console.WriteLine("Ya existe un cliente con ese código.");
                 FuncionesAuxiliares.Pausar();
@@ -96,7 +101,7 @@ namespace TallerAutomotriz.Oficina
                 fechaVehiculo
             );
 
-            registros.Add(nuevoRegistro);
+            repository.registros.Add(nuevoRegistro);
 
             Console.WriteLine();
             Console.WriteLine("Registro agregado exitosamente.");
@@ -111,14 +116,14 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("      REGISTROS DE CLIENTES");
             Console.WriteLine("=================================");
 
-            if (registros.Count == 0)
+            if (repository.registros.Count == 0)
             {
                 Console.WriteLine("No hay registros actualmente.");
                 FuncionesAuxiliares.Pausar();
                 return;
             }
 
-            foreach (ClienteVehiculo registro in registros)
+            foreach (ClienteVehiculo registro in repository.registros)
             {
                 MostrarRegistro(registro);
                 Console.WriteLine("---------------------------------");
@@ -147,7 +152,7 @@ namespace TallerAutomotriz.Oficina
 
                     ClienteVehiculo? registroPorCodigo = null;
 
-                    foreach (ClienteVehiculo registro in registros)
+                    foreach (ClienteVehiculo registro in repository.registros)
                     {
                         if (registro.CodigoCliente == codigo)
                         {
@@ -163,7 +168,7 @@ namespace TallerAutomotriz.Oficina
 
                     ClienteVehiculo? registroPorPlaca = null;
 
-                    foreach (ClienteVehiculo registro in registros)
+                    foreach (ClienteVehiculo registro in repository.registros)
                     {
                         if (registro.PlacaVehiculo == placa)
                         {

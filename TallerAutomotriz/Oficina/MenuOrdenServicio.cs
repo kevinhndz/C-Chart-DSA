@@ -1,3 +1,4 @@
+using TallerAutomotriz.Datos;
 using TallerAutomotriz.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,13 @@ namespace TallerAutomotriz.Oficina
 {
     internal class MenuOrdenServicio
     {
-        // Lista que guarda las ordenes de servicio mientras el programa esta abierto.
-        private readonly List<OrdenServicio> ordenes =
-            new List<OrdenServicio>();
+        private readonly Repository repository;
+
+        // Recibe el mismo almacen que usan los otros menus.
+        public MenuOrdenServicio(Repository repository)
+        {
+            this.repository = repository;
+        }
 
         public void MostrarMenu()
         {
@@ -88,7 +93,7 @@ namespace TallerAutomotriz.Oficina
 
             string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de orden: ");
 
-            if (ordenes.Any(o => o.numeroOrden == numeroOrden))
+            if (repository.ordenes.Any(o => o.numeroOrden == numeroOrden))
             {
                 Console.WriteLine("Ya existe una orden con ese numero.");
                 FuncionesAuxiliares.Pausar();
@@ -114,7 +119,7 @@ namespace TallerAutomotriz.Oficina
                 costoEstimado,
                 "Pendiente");
 
-            ordenes.Add(nuevaOrden);
+            repository.ordenes.Add(nuevaOrden);
 
             Console.WriteLine("Orden agregada exitosamente.");
             FuncionesAuxiliares.Pausar();
@@ -129,14 +134,14 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("      ORDENES REGISTRADAS");
             Console.WriteLine("=================================");
 
-            if (ordenes.Count == 0)
+            if (repository.ordenes.Count == 0)
             {
                 Console.WriteLine("No hay ordenes actualmente.");
                 FuncionesAuxiliares.Pausar();
                 return;
             }
 
-            foreach (OrdenServicio orden in ordenes)
+            foreach (OrdenServicio orden in repository.ordenes)
             {
                 MostrarOrden(orden);
                 Console.WriteLine("---------------------------------");
@@ -165,7 +170,7 @@ namespace TallerAutomotriz.Oficina
                     string codigo = FuncionesAuxiliares.LeerTexto("Ingrese el codigo del cliente: ");
                     bool encontroCodigo = false;
 
-                    foreach (OrdenServicio orden in ordenes)
+                    foreach (OrdenServicio orden in repository.ordenes)
                     {
                         if (orden.codigoCliente == codigo)
                         {
@@ -185,7 +190,7 @@ namespace TallerAutomotriz.Oficina
                     string placa = FuncionesAuxiliares.LeerTexto("Ingrese la placa del vehiculo: ").ToUpper();
                     bool encontroPlaca = false;
 
-                    foreach (OrdenServicio orden in ordenes)
+                    foreach (OrdenServicio orden in repository.ordenes)
                     {
                         if (orden.placaVehiculo == placa)
                         {
@@ -219,7 +224,7 @@ namespace TallerAutomotriz.Oficina
             DateTime fecha = FuncionesAuxiliares.LeerFecha("Ingrese la fecha que desea buscar: ");
             bool encontro = false;
 
-            foreach (OrdenServicio orden in ordenes)
+            foreach (OrdenServicio orden in repository.ordenes)
             {
                 if (orden.fechaIngreso.Date == fecha.Date)
                 {
@@ -243,7 +248,7 @@ namespace TallerAutomotriz.Oficina
             string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de la orden que desea modificar: ");
             OrdenServicio? orden = null;
 
-            foreach (OrdenServicio ordenActual in ordenes)
+            foreach (OrdenServicio ordenActual in repository.ordenes)
             {
                 if (ordenActual.numeroOrden == numeroOrden)
                 {
@@ -305,7 +310,7 @@ namespace TallerAutomotriz.Oficina
             string numeroOrden = FuncionesAuxiliares.LeerTexto("Numero de la orden que desea cancelar: ");
             OrdenServicio? orden = null;
 
-            foreach (OrdenServicio ordenActual in ordenes)
+            foreach (OrdenServicio ordenActual in repository.ordenes)
             {
                 if (ordenActual.numeroOrden == numeroOrden)
                 {
@@ -337,7 +342,7 @@ namespace TallerAutomotriz.Oficina
 
             bool encontro = false;
 
-            foreach (OrdenServicio orden in ordenes)
+            foreach (OrdenServicio orden in repository.ordenes)
             {
                 if (orden.estadoOrden == "Pendiente")
                 {

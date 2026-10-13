@@ -1,3 +1,4 @@
+using TallerAutomotriz.Datos;
 using TallerAutomotriz.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,14 @@ namespace TallerAutomotriz.Oficina
 {
     internal class MenuColaAtencion
     {
-        // Queue guarda las placas en orden de llegada para atenderlas FIFO.
-        private readonly Queue<string> vehiculosEnFila =
-            new Queue<string>();
+        private readonly Repository repository;
 
-        // Muestra el menu de la fila de atencion.
+        // Recibe el mismo almacen que usan los otros menus.
+        public MenuColaAtencion(Repository repository)
+        {
+            this.repository = repository;
+        }
+
         public void MostrarMenu()
         {
             bool continuar = true;
@@ -72,7 +76,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.LimpiarPantalla();
 
             string placa = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
-            vehiculosEnFila.Enqueue(placa);
+            repository.vehiculosEnFila.Enqueue(placa);
 
             Console.WriteLine("Vehiculo agregado al final de la fila.");
             FuncionesAuxiliares.Pausar();
@@ -83,14 +87,14 @@ namespace TallerAutomotriz.Oficina
         {
             FuncionesAuxiliares.LimpiarPantalla();
 
-            if (vehiculosEnFila.Count == 0)
+            if (repository.vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
             }
             else
             {
                 // Dequeue devuelve y quita la primera placa de la cola.
-                string placa = vehiculosEnFila.Dequeue();
+                string placa = repository.vehiculosEnFila.Dequeue();
                 Console.WriteLine($"Vehiculo atendido: {placa}");
             }
 
@@ -102,13 +106,13 @@ namespace TallerAutomotriz.Oficina
         {
             FuncionesAuxiliares.LimpiarPantalla();
 
-            if (vehiculosEnFila.Count == 0)
+            if (repository.vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
             }
             else
             {
-                string placa = vehiculosEnFila.Peek();
+                string placa = repository.vehiculosEnFila.Peek();
                 Console.WriteLine($"Proximo vehiculo: {placa}");
             }
 
@@ -120,7 +124,7 @@ namespace TallerAutomotriz.Oficina
         {
             FuncionesAuxiliares.LimpiarPantalla();
 
-            if (vehiculosEnFila.Count == 0)
+            if (repository.vehiculosEnFila.Count == 0)
             {
                 Console.WriteLine("No hay vehiculos esperando.");
                 FuncionesAuxiliares.Pausar();
@@ -129,7 +133,7 @@ namespace TallerAutomotriz.Oficina
 
             Console.WriteLine("VEHICULOS EN ESPERA");
 
-            foreach (string placa in vehiculosEnFila)
+            foreach (string placa in repository.vehiculosEnFila)
             {
                 Console.WriteLine($"Placa: {placa}");
             }
@@ -142,7 +146,7 @@ namespace TallerAutomotriz.Oficina
         {
             FuncionesAuxiliares.LimpiarPantalla();
 
-            int totalEnEspera = vehiculosEnFila.Count;
+            int totalEnEspera = repository.vehiculosEnFila.Count;
             Console.WriteLine($"Vehiculos esperando: {totalEnEspera}");
 
             FuncionesAuxiliares.Pausar();

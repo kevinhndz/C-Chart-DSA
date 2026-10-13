@@ -1,3 +1,4 @@
+using TallerAutomotriz.Datos;
 using TallerAutomotriz.Utilidades;
 using System;
 using TallerAutomotriz.Oficina;
@@ -6,6 +7,9 @@ namespace TallerAutomotriz
 {
     internal class MenuPrincipal
     {
+        // Una sola instancia conserva los datos al salir y volver a los modulos.
+        private readonly Repository repository = new Repository();
+
         public void MostrarMenu()
         {
             bool continuar = true;
@@ -30,21 +34,21 @@ namespace TallerAutomotriz
                 {
                     case 1:
                         MenuClientesVehiculos menuClientes =
-                            new MenuClientesVehiculos();
+                            new MenuClientesVehiculos(repository);
 
                         menuClientes.MostrarMenu();
                         break;
 
                     case 2:
                         MenuOrdenServicio menuOrdenes =
-                            new MenuOrdenServicio();
+                            new MenuOrdenServicio(repository);
 
                         menuOrdenes.MostrarMenu();
                         break;
 
                     case 3:
                         MenuColaAtencion menuCola =
-                            new MenuColaAtencion();
+                            new MenuColaAtencion(repository);
 
                         menuCola.MostrarMenu();
                         break;

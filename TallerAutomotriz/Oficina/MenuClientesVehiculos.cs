@@ -117,6 +117,8 @@ namespace TallerAutomotriz.Oficina
             );
 
             repository.registros.Add(nuevoRegistro);
+            // Push agrega esta operacion encima de las anteriores.
+            repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro de cliente y vehiculo: {codigoCliente}, placa {placaVehiculo}");
 
             Console.WriteLine();
             Console.WriteLine("Registro agregado exitosamente.");
@@ -233,6 +235,8 @@ namespace TallerAutomotriz.Oficina
                 registroEncontrado.ModeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehiculo: ");
                 registroEncontrado.AnioVehiculo = FuncionesAuxiliares.LeerEntero("Anio del vehiculo: ");
                 registroEncontrado.FechaVehiculo = FuncionesAuxiliares.LeerFecha("Fecha de registro (dd/MM/yyyy): ");
+                // Push agrega esta operacion encima de las anteriores.
+                repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro modificado: {codigo}");
                 Console.WriteLine("Registro modificado exitosamente.");
             }
 
@@ -261,6 +265,8 @@ namespace TallerAutomotriz.Oficina
             else
             {
                 repository.registros.Remove(registroEncontrado);
+                // Push agrega esta operacion encima de las anteriores.
+                repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro eliminado: {codigo}");
                 Console.WriteLine("Registro eliminado exitosamente.");
             }
 

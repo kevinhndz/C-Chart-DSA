@@ -77,6 +77,8 @@ namespace TallerAutomotriz.Oficina
 
             string placa = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
             repository.vehiculosEnFila.Enqueue(placa);
+            // Push agrega esta operacion encima de las anteriores.
+            repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Ingreso a la fila: {placa}");
 
             Console.WriteLine("Vehiculo agregado al final de la fila.");
             FuncionesAuxiliares.Pausar();
@@ -95,6 +97,8 @@ namespace TallerAutomotriz.Oficina
             {
                 // Dequeue devuelve y quita la primera placa de la cola.
                 string placa = repository.vehiculosEnFila.Dequeue();
+                // Push agrega esta operacion encima de las anteriores.
+                repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Inicio de atencion: {placa}");
                 Console.WriteLine($"Vehiculo atendido: {placa}");
             }
 

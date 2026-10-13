@@ -120,6 +120,8 @@ namespace TallerAutomotriz.Oficina
                 "Pendiente");
 
             repository.ordenes.Add(nuevaOrden);
+            // Push agrega esta operacion encima de las anteriores.
+            repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro de orden: {numeroOrden}, placa {placaVehiculo}");
 
             Console.WriteLine("Orden agregada exitosamente.");
             FuncionesAuxiliares.Pausar();
@@ -263,6 +265,8 @@ namespace TallerAutomotriz.Oficina
                 return;
             }
 
+            // Conserva el estado previo para detectar una finalizacion o cancelacion nueva.
+            string estadoAnterior = orden.estadoOrden;
             Console.WriteLine("Ingrese los nuevos datos de la orden.");
             orden.codigoCliente = FuncionesAuxiliares.LeerTexto("Codigo del cliente: ");
             orden.placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
@@ -298,6 +302,21 @@ namespace TallerAutomotriz.Oficina
                     break;
             }
 
+            repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Orden modificada: {orden.numeroOrden}");
+
+            // Registra el cambio de estado solo cuando realmente cambia.
+            if (estadoAnterior != orden.estadoOrden)
+            {
+                if (orden.estadoOrden == "Finalizada")
+                {
+                    repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Orden finalizada: {orden.numeroOrden}");
+                }
+                else if (orden.estadoOrden == "Cancelada")
+                {
+                    repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Orden cancelada: {orden.numeroOrden}");
+                }
+            }
+
             Console.WriteLine("Orden modificada exitosamente.");
             FuncionesAuxiliares.Pausar();
         }
@@ -324,7 +343,11 @@ namespace TallerAutomotriz.Oficina
             }
             else
             {
-                orden.estadoOrden = "Cancelada";
+                if (orden.estadoOrden != "Cancelada")
+                {
+                    orden.estadoOrden = "Cancelada";
+                    repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Orden cancelada: {orden.numeroOrden}");
+                }
                 Console.WriteLine("Orden cancelada exitosamente.");
             }
 

@@ -46,6 +46,60 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
+        // Lee un nombre y vuelve a pedirlo si contiene numeros.
+        public static string LeerNombre(string mensaje)
+        {
+            while (true)
+            {
+                string nombre = LeerTexto(mensaje);
+                bool tieneNumero = false;
+
+                foreach (char caracter in nombre)
+                {
+                    if (caracter >= '0' && caracter <= '9')
+                    {
+                        tieneNumero = true;
+                    }
+                }
+
+                if (tieneNumero == false)
+                {
+                    return nombre;
+                }
+                else
+                {
+                    Console.WriteLine("El nombre no debe contener numeros.");
+                }
+            }
+        }
+
+        // Lee un telefono que solo puede contener numeros.
+        public static string LeerTelefono(string mensaje)
+        {
+            while (true)
+            {
+                string telefono = LeerTexto(mensaje);
+                bool tieneCaracterNoNumerico = false;
+
+                foreach (char caracter in telefono)
+                {
+                    if (caracter < '0' || caracter > '9')
+                    {
+                        tieneCaracterNoNumerico = true;
+                    }
+                }
+
+                if (tieneCaracterNoNumerico == false)
+                {
+                    return telefono;
+                }
+                else
+                {
+                    Console.WriteLine("El telefono solo debe contener numeros.");
+                }
+            }
+        }
+
         // Lee una fecha y vuelve a pedirla si no es valida.
         public static DateTime LeerFecha(string mensaje)
         {

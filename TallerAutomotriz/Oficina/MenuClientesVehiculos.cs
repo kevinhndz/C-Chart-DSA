@@ -95,8 +95,8 @@ namespace TallerAutomotriz.Oficina
                 return;
             }
 
-            string nombreCliente = FuncionesAuxiliares.LeerTexto("Nombre del cliente: ");
-            string telefonoCliente = FuncionesAuxiliares.LeerTexto("Teléfono del cliente: ");
+            string nombreCliente = FuncionesAuxiliares.LeerNombre("Nombre del cliente: ");
+            string telefonoCliente = FuncionesAuxiliares.LeerTelefono("Teléfono del cliente: ");
             string placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehículo: ").ToUpper();
             string marcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehículo: ");
             string modeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehículo: ");
@@ -228,8 +228,8 @@ namespace TallerAutomotriz.Oficina
             else
             {
                 // El codigo conserva la identidad del registro que se esta modificando.
-                registroEncontrado.NombreCliente = FuncionesAuxiliares.LeerTexto("Nombre del cliente: ");
-                registroEncontrado.TelefonoCliente = FuncionesAuxiliares.LeerTexto("Telefono del cliente: ");
+                registroEncontrado.NombreCliente = FuncionesAuxiliares.LeerNombre("Nombre del cliente: ");
+                registroEncontrado.TelefonoCliente = FuncionesAuxiliares.LeerTelefono("Telefono del cliente: ");
                 registroEncontrado.PlacaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
                 registroEncontrado.MarcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehiculo: ");
                 registroEncontrado.ModeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehiculo: ");

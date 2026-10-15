@@ -177,7 +177,7 @@ namespace TallerAutomotriz.Oficina
                         }
                     }
 
-                    MostrarResultadoBusqueda(registroPorCodigo);
+                    MostrarRegistroEncontrado(registroPorCodigo);
                     break;
 
                 case 2:
@@ -193,7 +193,7 @@ namespace TallerAutomotriz.Oficina
                         }
                     }
 
-                    MostrarResultadoBusqueda(registroPorPlaca);
+                    MostrarRegistroEncontrado(registroPorPlaca);
                     break;
 
                 case 3:
@@ -281,7 +281,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        private void MostrarResultadoBusqueda(ClienteVehiculo? registro)
+        private void MostrarRegistroEncontrado(ClienteVehiculo? registro)
         {
             FuncionesAuxiliares.LimpiarPantalla();
 

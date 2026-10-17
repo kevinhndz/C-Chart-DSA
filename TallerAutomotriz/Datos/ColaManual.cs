@@ -1,6 +1,6 @@
 namespace TallerAutomotriz.Datos
 {
-    // Guarda placas en orden FIFO usando un arreglo circular.
+    
     internal class ColaManual
     {
         private string[] elementos = new string[4];

@@ -7,7 +7,7 @@ namespace TallerAutomotriz
 {
     internal class MenuPrincipal
     {
-        // Una sola instancia conserva los datos al salir y volver a los modulos.
+        
         private readonly Repository repository = new Repository();
 
         public void MostrarMenu()

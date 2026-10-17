@@ -1,6 +1,6 @@
 namespace TallerAutomotriz.Datos
 {
-    // Guarda operaciones en orden LIFO usando un arreglo.
+    
     internal class PilaManual
     {
         private string[] elementos = new string[4];

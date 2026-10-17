@@ -11,7 +11,7 @@ namespace TallerAutomotriz.Oficina
     {
         private readonly Repository repository;
 
-        // Recibe el mismo almacen que usan los otros menus.
+        
         public MenuClientesVehiculos(Repository repository)
         {
             this.repository = repository;
@@ -26,9 +26,9 @@ namespace TallerAutomotriz.Oficina
                 FuncionesAuxiliares.LimpiarPantalla();
 
                 Console.WriteLine("=================================");
-                Console.WriteLine("      CLIENTES Y VEHÍCULOS");
+                Console.WriteLine("      CLIENTES Y VEHICULOS");
                 Console.WriteLine("=================================");
-                Console.WriteLine("1. Registrar cliente y vehículo");
+                Console.WriteLine("1. Registrar cliente y vehiculo");
                 Console.WriteLine("2. Mostrar registros");
                 Console.WriteLine("3. Buscar registro");
                 Console.WriteLine("4. Modificar registro");
@@ -37,7 +37,7 @@ namespace TallerAutomotriz.Oficina
                 Console.WriteLine("7. Regresar al menu principal");
                 Console.WriteLine("=================================");
 
-                int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opción: ");
+                int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opcion: ");
 
                 switch (opcion)
                 {
@@ -70,7 +70,7 @@ namespace TallerAutomotriz.Oficina
                         break;
 
                     default:
-                        Console.WriteLine("Opción no válida.");
+                        Console.WriteLine("Opcion no valida.");
                         FuncionesAuxiliares.Pausar();
                         break;
                 }
@@ -82,25 +82,25 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.LimpiarPantalla();
 
             Console.WriteLine("=================================");
-            Console.WriteLine("   REGISTRAR CLIENTE Y VEHÍCULO");
+            Console.WriteLine("   REGISTRAR CLIENTE Y VEHICULO");
             Console.WriteLine("=================================");
 
-            int codigoCliente = FuncionesAuxiliares.LeerEntero("Código del cliente: ");
+            int codigoCliente = FuncionesAuxiliares.LeerEntero("Codigo del cliente: ");
 
-            // Evita registrar dos clientes con el mismo codigo.
+            
             if (repository.registros.Any(r => r.CodigoCliente == codigoCliente))
             {
-                Console.WriteLine("Ya existe un cliente con ese código.");
+                Console.WriteLine("Ya existe un cliente con ese codigo.");
                 FuncionesAuxiliares.Pausar();
                 return;
             }
 
             string nombreCliente = FuncionesAuxiliares.LeerNombre("Nombre del cliente: ");
-            string telefonoCliente = FuncionesAuxiliares.LeerTelefono("Teléfono del cliente: ");
-            string placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehículo: ").ToUpper();
-            string marcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehículo: ");
-            string modeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehículo: ");
-            int anioVehiculo = FuncionesAuxiliares.LeerEntero("Año del vehículo: ");
+            string telefonoCliente = FuncionesAuxiliares.LeerTelefono("Telefono del cliente: ");
+            string placaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
+            string marcaVehiculo = FuncionesAuxiliares.LeerTexto("Marca del vehiculo: ");
+            string modeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehiculo: ");
+            int anioVehiculo = FuncionesAuxiliares.LeerEntero("Ano del vehiculo: ");
 
             DateTime fechaVehiculo = FuncionesAuxiliares.LeerFecha(
                 "Fecha de registro (dd/MM/yyyy): ");
@@ -117,7 +117,7 @@ namespace TallerAutomotriz.Oficina
             );
 
             repository.registros.Add(nuevoRegistro);
-            // Push agrega esta operacion encima de las anteriores.
+            
             repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro de cliente y vehiculo: {codigoCliente}, placa {placaVehiculo}");
 
             Console.WriteLine();
@@ -156,16 +156,16 @@ namespace TallerAutomotriz.Oficina
             Console.WriteLine("=================================");
             Console.WriteLine("        BUSCAR REGISTRO");
             Console.WriteLine("=================================");
-            Console.WriteLine("1. Buscar por código de cliente");
+            Console.WriteLine("1. Buscar por codigo de cliente");
             Console.WriteLine("2. Buscar por placa");
             Console.WriteLine("3. Regresar");
 
-            int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opción: ");
+            int opcion = FuncionesAuxiliares.LeerEntero("Seleccione una opcion: ");
 
             switch (opcion)
             {
                 case 1:
-                    int codigo = FuncionesAuxiliares.LeerEntero("Ingrese el código del cliente: ");
+                    int codigo = FuncionesAuxiliares.LeerEntero("Ingrese el codigo del cliente: ");
 
                     ClienteVehiculo? registroPorCodigo = null;
 
@@ -181,7 +181,7 @@ namespace TallerAutomotriz.Oficina
                     break;
 
                 case 2:
-                    string placa = FuncionesAuxiliares.LeerTexto("Ingrese la placa del vehículo: ").ToUpper();
+                    string placa = FuncionesAuxiliares.LeerTexto("Ingrese la placa del vehiculo: ").ToUpper();
 
                     ClienteVehiculo? registroPorPlaca = null;
 
@@ -206,7 +206,7 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Busca por codigo y cambia los datos del objeto encontrado en la lista.
+        
         private void ModificarRegistro()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -227,7 +227,7 @@ namespace TallerAutomotriz.Oficina
             }
             else
             {
-                // El codigo conserva la identidad del registro que se esta modificando.
+                
                 registroEncontrado.NombreCliente = FuncionesAuxiliares.LeerNombre("Nombre del cliente: ");
                 registroEncontrado.TelefonoCliente = FuncionesAuxiliares.LeerTelefono("Telefono del cliente: ");
                 registroEncontrado.PlacaVehiculo = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
@@ -235,7 +235,7 @@ namespace TallerAutomotriz.Oficina
                 registroEncontrado.ModeloVehiculo = FuncionesAuxiliares.LeerTexto("Modelo del vehiculo: ");
                 registroEncontrado.AnioVehiculo = FuncionesAuxiliares.LeerEntero("Anio del vehiculo: ");
                 registroEncontrado.FechaVehiculo = FuncionesAuxiliares.LeerFecha("Fecha de registro (dd/MM/yyyy): ");
-                // Push agrega esta operacion encima de las anteriores.
+                
                 repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro modificado: {codigo}");
                 Console.WriteLine("Registro modificado exitosamente.");
             }
@@ -243,7 +243,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Encuentra el objeto y lo retira despues de terminar el recorrido.
+        
         private void EliminarRegistro()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -265,7 +265,7 @@ namespace TallerAutomotriz.Oficina
             else
             {
                 repository.registros.Remove(registroEncontrado);
-                // Push agrega esta operacion encima de las anteriores.
+                
                 repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro eliminado: {codigo}");
                 Console.WriteLine("Registro eliminado exitosamente.");
             }
@@ -273,7 +273,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Count devuelve cuantos registros de clientes y vehiculos hay en la lista.
+        
         private void MostrarTotalRegistros()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -299,13 +299,13 @@ namespace TallerAutomotriz.Oficina
 
         private void MostrarRegistro(ClienteVehiculo registro)
         {
-            Console.WriteLine($"Código del cliente: {registro.CodigoCliente}");
+            Console.WriteLine($"Codigo del cliente: {registro.CodigoCliente}");
             Console.WriteLine($"Nombre: {registro.NombreCliente}");
-            Console.WriteLine($"Teléfono: {registro.TelefonoCliente}");
+            Console.WriteLine($"Telefono: {registro.TelefonoCliente}");
             Console.WriteLine($"Placa: {registro.PlacaVehiculo}");
             Console.WriteLine($"Marca: {registro.MarcaVehiculo}");
             Console.WriteLine($"Modelo: {registro.ModeloVehiculo}");
-            Console.WriteLine($"Año: {registro.AnioVehiculo}");
+            Console.WriteLine($"Ano: {registro.AnioVehiculo}");
             Console.WriteLine(
                 $"Fecha de registro: " +
                 $"{registro.FechaVehiculo:dd/MM/yyyy}");

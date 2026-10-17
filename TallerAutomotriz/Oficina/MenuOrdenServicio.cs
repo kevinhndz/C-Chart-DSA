@@ -11,7 +11,7 @@ namespace TallerAutomotriz.Oficina
     {
         private readonly Repository repository;
 
-        // Recibe el mismo almacen que usan los otros menus.
+        
         public MenuOrdenServicio(Repository repository)
         {
             this.repository = repository;
@@ -82,7 +82,7 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Pide los datos de una orden y la agrega a la lista.
+        
         private void RegistrarOrden()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -120,14 +120,14 @@ namespace TallerAutomotriz.Oficina
                 "Pendiente");
 
             repository.ordenes.Add(nuevaOrden);
-            // Push agrega esta operacion encima de las anteriores.
+            
             repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Registro de orden: {numeroOrden}, placa {placaVehiculo}");
 
             Console.WriteLine("Orden agregada exitosamente.");
             FuncionesAuxiliares.Pausar();
         }
 
-        // Recorre la lista y muestra todas las ordenes registradas.
+        
         private void MostrarOrdenes()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -152,7 +152,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Presenta las opciones para buscar por codigo de cliente o por placa.
+        
         private void MostrarMenuBusqueda()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -218,7 +218,7 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Busca las ordenes que tienen la fecha de ingreso indicada.
+        
         private void BuscarPorFecha()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -242,7 +242,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Busca una orden por su numero y permite cambiar sus datos.
+        
         private void ModificarOrden()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -265,7 +265,7 @@ namespace TallerAutomotriz.Oficina
                 return;
             }
 
-            // Conserva el estado previo para detectar una finalizacion o cancelacion nueva.
+            
             string estadoAnterior = orden.estadoOrden;
             Console.WriteLine("Ingrese los nuevos datos de la orden.");
             orden.codigoCliente = FuncionesAuxiliares.LeerTexto("Codigo del cliente: ");
@@ -304,7 +304,7 @@ namespace TallerAutomotriz.Oficina
 
             repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Orden modificada: {orden.numeroOrden}");
 
-            // Registra el cambio de estado solo cuando realmente cambia.
+            
             if (estadoAnterior != orden.estadoOrden)
             {
                 if (orden.estadoOrden == "Finalizada")
@@ -321,7 +321,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Cambia el estado de una orden a Cancelada.
+        
         private void CancelarOrden()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -354,7 +354,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Recorre la lista y muestra las ordenes con estado Pendiente.
+        
         private void MostrarPendientes()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -382,7 +382,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Imprime las propiedades de una orden.
+        
         private void MostrarOrden(OrdenServicio orden)
         {
             Console.WriteLine($"Numero de orden: {orden.numeroOrden}");

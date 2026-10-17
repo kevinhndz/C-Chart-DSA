@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TallerAutomotriz
 {
@@ -8,7 +8,7 @@ namespace TallerAutomotriz
         {
             MenuPrincipal menu = new MenuPrincipal();
 
-            // Inicia el menu principal del sistema.
+            
             menu.MostrarMenu();
 
             Console.WriteLine("Programa finalizado.");

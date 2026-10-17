@@ -9,7 +9,7 @@ namespace TallerAutomotriz.Oficina
     {
         private readonly Repository repository;
 
-        // Recibe el mismo almacen que usan los otros menus.
+        
         public MenuColaAtencion(Repository repository)
         {
             this.repository = repository;
@@ -70,21 +70,21 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Pide una placa y Enqueue la agrega al final de la cola.
+        
         private void AgregarVehiculo()
         {
             FuncionesAuxiliares.LimpiarPantalla();
 
             string placa = FuncionesAuxiliares.LeerTexto("Placa del vehiculo: ").ToUpper();
             repository.vehiculosEnFila.Enqueue(placa);
-            // Push agrega esta operacion encima de las anteriores.
+            
             repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Ingreso a la fila: {placa}");
 
             Console.WriteLine("Vehiculo agregado al final de la fila.");
             FuncionesAuxiliares.Pausar();
         }
 
-        // Atiende y quita de la cola la primera placa que llego.
+        
         private void AtenderProximoVehiculo()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -95,9 +95,9 @@ namespace TallerAutomotriz.Oficina
             }
             else
             {
-                // Dequeue devuelve y quita la primera placa de la cola.
+                
                 string placa = repository.vehiculosEnFila.Dequeue();
-                // Push agrega esta operacion encima de las anteriores.
+                
                 repository.historial.Push($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - Inicio de atencion: {placa}");
                 Console.WriteLine($"Vehiculo atendido: {placa}");
             }
@@ -105,7 +105,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Peek muestra la primera placa sin quitarla de la cola.
+        
         private void VerProximoVehiculo()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -123,7 +123,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Recorre la cola y muestra todas las placas que esperan.
+        
         private void MostrarVehiculosEnEspera()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -147,7 +147,7 @@ namespace TallerAutomotriz.Oficina
             FuncionesAuxiliares.Pausar();
         }
 
-        // Muestra cuantos vehiculos siguen esperando en la cola.
+        
         private void MostrarTotalVehiculos()
         {
             FuncionesAuxiliares.LimpiarPantalla();

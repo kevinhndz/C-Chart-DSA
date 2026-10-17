@@ -8,13 +8,13 @@ namespace TallerAutomotriz.Oficina
     {
         private readonly Repository repository;
 
-        // Recibe el almacen donde los demas menus registran las operaciones.
+        
         public MenuHistorial(Repository repository)
         {
             this.repository = repository;
         }
 
-        // Permite consultar el historial y regresar al menu principal.
+        
         public void MostrarMenu()
         {
             bool continuar = true;
@@ -46,7 +46,7 @@ namespace TallerAutomotriz.Oficina
             }
         }
 
-        // Recorre la pila desde la operacion mas reciente sin eliminar sus datos.
+        
         private void MostrarHistorial()
         {
             FuncionesAuxiliares.LimpiarPantalla();
@@ -59,7 +59,7 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.WriteLine("HISTORIAL: DE MAS RECIENTE A MAS ANTIGUO");
 
-                // ObtenerElementos entrega las operaciones desde la mas reciente.
+                
                 string[] operaciones = repository.historial.ObtenerElementos();
 
                 foreach (string operacion in operaciones)

@@ -2,17 +2,17 @@ using System;
 
 namespace TallerAutomotriz.Utilidades
 {
-    // Reune la lectura, validacion y pausa que usan todos los menus.
+    
     internal static class FuncionesAuxiliares
     {
-        // Lee un numero entero y vuelve a pedirlo si no es valido.
+        
         public static int LeerEntero(string mensaje)
         {
             int valor;
 
             while (true)
             {
-                Console.Write(mensaje); // Escruve u netero
+                Console.Write(mensaje); 
 
                 string? textoIngresado = Console.ReadLine();
 
@@ -27,7 +27,7 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Lee un texto obligatorio y quita los espacios de sus extremos.
+        
         public static string LeerTexto(string mensaje)
         {
             string? valor;
@@ -46,7 +46,7 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Lee un nombre y vuelve a pedirlo si contiene numeros.
+        
         public static string LeerNombre(string mensaje)
         {
             while (true)
@@ -73,7 +73,7 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Lee un telefono que solo puede contener numeros.
+        
         public static string LeerTelefono(string mensaje)
         {
             while (true)
@@ -100,7 +100,7 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Lee una fecha y vuelve a pedirla si no es valida.
+        
         public static DateTime LeerFecha(string mensaje)
         {
             DateTime fecha;
@@ -118,7 +118,7 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Lee el costo como decimal y no acepta valores negativos.
+        
         public static decimal LeerDecimal(string mensaje)
         {
             decimal valor;
@@ -140,14 +140,14 @@ namespace TallerAutomotriz.Utilidades
             }
         }
 
-        // Pausa la pantalla para que el usuario pueda leer el resultado.
+        
         public static void Pausar()
         {
             Console.WriteLine();
             Console.WriteLine("Presione una tecla para continuar...");
             Console.ReadKey();
         }
-        // Limpia la pantalla antes de mostrar otra operacion.
+        
         public static void LimpiarPantalla()
         {
             Console.Clear();

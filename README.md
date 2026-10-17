@@ -75,11 +75,11 @@ Para finalizar una orden, entrar a Ordenes, elegir Modificar orden (5) y selecci
 
 ## Cola e historial
 
-Repository contiene dos listas y dos estructuras creadas para este proyecto: `ColaManual<string>` y `PilaManual<string>`. No se usan los tipos reservados `Queue` ni `Stack`.
+Repository contiene dos listas y dos estructuras creadas para este proyecto: `ColaManual` y `PilaManual`. Ambas guardan textos (`string`). No se usan los tipos prediseñados `Queue` ni `Stack`.
 
-La cola guarda placas en un arreglo circular. Enqueue agrega al final logico, Dequeue devuelve y retira la primera placa, y Peek consulta esa primera placa sin retirarla. Al llegar al limite del arreglo, la cola crea uno mas grande y copia los elementos en su orden FIFO. Antes de atender o consultar se comprueba Count para evitar operar sobre una cola vacia. Es FIFO: primero en entrar, primero en salir.
+La cola guarda placas en un arreglo circular de cuatro espacios. Enqueue agrega al final logico, Dequeue devuelve y retira la primera placa, y Peek consulta esa primera placa sin retirarla. Si el arreglo se llena, crea otro con el doble de espacios y copia las placas en su orden FIFO. La vuelta al inicio se calcula con if, sin usar el operador modulo. Antes de atender o consultar se comprueba Count para evitar operar sobre una cola vacia. Es FIFO: primero en entrar, primero en salir.
 
-La pila guarda descripciones con fecha y hora en un arreglo que crece cuando se llena. Push agrega una operacion arriba de las anteriores. Pop retira la operacion superior. ObtenerElementos recorre las posiciones ocupadas desde la ultima hasta la primera; consultar el historial conserva todos los elementos. Es el orden LIFO: la ultima operacion aparece primero.
+La pila guarda descripciones con fecha y hora en un arreglo que crece cuando se llena. Push guarda la operacion en el siguiente espacio libre. Pop retira la operacion superior. ObtenerElementos recorre las posiciones ocupadas desde la ultima hasta la primera; consultar el historial conserva todos los elementos. Es el orden LIFO: la ultima operacion aparece primero.
 
 Se registran las altas de clientes y ordenes, modificaciones y eliminaciones, ingresos y atenciones en la cola, cancelaciones y finalizaciones. Las busquedas, consultas y operaciones rechazadas no crean eventos. Cancelar nuevamente una orden ya cancelada tampoco agrega otra cancelacion.
 

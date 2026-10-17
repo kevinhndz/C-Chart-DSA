@@ -21,7 +21,7 @@ El proyecto utiliza .NET 8.
 | Formularios | Define las propiedades y constructores de ClienteVehiculo y OrdenServicio. |
 | Recepcion | MenuPrincipal crea un Repository y lo entrega a cada menu. |
 | Oficina | Contiene las operaciones de clientes, ordenes, cola e historial. |
-| Datos | Repository contiene las listas, la cola y la pila compartidas. |
+| Datos | Repository contiene las listas y las estructuras manuales compartidas. |
 | Utilidades | FuncionesAuxiliares reune lectura, validacion, limpieza y pausa de consola. |
 
 ## Como se comparten los datos
@@ -45,7 +45,7 @@ El parametro y el campo se llaman igual. `this.repository` identifica el campo d
 
 Por ejemplo, `repository.registros.Add(nuevoRegistro)` agrega el objeto a la lista compartida. Aunque el menu se cree otra vez, recibe el Repository que ya existia y puede mostrar los registros anteriores.
 
-`readonly` impide reemplazar una coleccion por otra. Su contenido puede cambiar mediante Add, Remove, Enqueue, Dequeue o Push.
+`readonly` impide reemplazar una coleccion por otra. Su contenido puede cambiar con las operaciones de las listas y de las estructuras manuales.
 
 Los datos duran hasta cerrar el programa. No se guardan en un archivo ni en una base de datos.
 
@@ -75,11 +75,11 @@ Para finalizar una orden, entrar a Ordenes, elegir Modificar orden (5) y selecci
 
 ## Cola e historial
 
-Repository contiene dos listas, un Queue<string> y un Stack<string>.
+Repository contiene dos listas y dos estructuras creadas para este proyecto: `ColaManual<string>` y `PilaManual<string>`. No se usan los tipos reservados `Queue` ni `Stack`.
 
-La cola guarda placas. Enqueue agrega al final, Dequeue devuelve y retira la primera placa, y Peek consulta esa primera placa sin retirarla. Antes de atender o consultar se comprueba Count para evitar operar sobre una cola vacia. Es FIFO: primero en entrar, primero en salir.
+La cola guarda placas en un arreglo circular. Enqueue agrega al final logico, Dequeue devuelve y retira la primera placa, y Peek consulta esa primera placa sin retirarla. Al llegar al limite del arreglo, la cola crea uno mas grande y copia los elementos en su orden FIFO. Antes de atender o consultar se comprueba Count para evitar operar sobre una cola vacia. Es FIFO: primero en entrar, primero en salir.
 
-La pila guarda descripciones con fecha y hora. Push agrega una operacion al tope. foreach recorre Stack desde la ultima operacion hasta la primera; consultar el historial conserva todos los elementos. Es el orden LIFO: la ultima operacion aparece primero.
+La pila guarda descripciones con fecha y hora en un arreglo que crece cuando se llena. Push agrega una operacion arriba de las anteriores. Pop retira la operacion superior. ObtenerElementos recorre las posiciones ocupadas desde la ultima hasta la primera; consultar el historial conserva todos los elementos. Es el orden LIFO: la ultima operacion aparece primero.
 
 Se registran las altas de clientes y ordenes, modificaciones y eliminaciones, ingresos y atenciones en la cola, cancelaciones y finalizaciones. Las busquedas, consultas y operaciones rechazadas no crean eventos. Cancelar nuevamente una orden ya cancelada tampoco agrega otra cancelacion.
 

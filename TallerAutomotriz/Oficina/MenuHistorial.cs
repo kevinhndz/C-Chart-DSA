@@ -59,8 +59,10 @@ namespace TallerAutomotriz.Oficina
             {
                 Console.WriteLine("HISTORIAL: DE MAS RECIENTE A MAS ANTIGUO");
 
-                // foreach sobre Stack muestra primero el ultimo elemento agregado.
-                foreach (string operacion in repository.historial)
+                // ObtenerElementos entrega las operaciones desde la mas reciente.
+                string[] operaciones = repository.historial.ObtenerElementos();
+
+                foreach (string operacion in operaciones)
                 {
                     Console.WriteLine(operacion);
                     Console.WriteLine("---------------------------------");

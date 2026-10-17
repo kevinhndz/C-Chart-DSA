@@ -137,7 +137,9 @@ namespace TallerAutomotriz.Oficina
 
             Console.WriteLine("VEHICULOS EN ESPERA");
 
-            foreach (string placa in repository.vehiculosEnFila)
+            string[] placas = repository.vehiculosEnFila.ObtenerElementos();
+
+            foreach (string placa in placas)
             {
                 Console.WriteLine($"Placa: {placa}");
             }

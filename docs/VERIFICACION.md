@@ -88,3 +88,9 @@ Se ejecuto la aplicacion real mediante `dotnet run --project TallerAutomotriz/Ta
 
 Estas comprobaciones cubren los recorridos indicados. El programa conserva el almacenamiento temporal en RAM y la interpretacion de fechas y decimales segun la configuracion regional del equipo.
 
+## Verificacion de las estructuras manuales
+
+Despues de reemplazar los tipos Queue y Stack por ColaManual y PilaManual, se compilo el proyecto en Release sin errores ni advertencias. Una comprobacion aislada ejercito la cola circular con A, B, C y D; retiro A, agrega E, retira B y agrega F y G, verificando que el orden final fuera C, D, E, F, G. Esto tambien verifico el crecimiento de capacidad, Count y Peek.
+
+La misma comprobacion agrego cinco elementos a la pila para forzar su crecimiento, verifico que la consulta devolviera E, D, C, B, A y comprobo que Pop retirara E y redujera Count. Todas las comprobaciones terminaron correctamente.
+

@@ -1,9 +1,9 @@
 namespace TallerAutomotriz.Datos
 {
-    // Guarda elementos en orden FIFO usando un arreglo circular.
-    internal class ColaManual<T>
+    // Guarda placas en orden FIFO usando un arreglo circular.
+    internal class ColaManual
     {
-        private T[] elementos = new T[4];
+        private string[] elementos = new string[4];
         private int inicio = 0;
         private int cantidad = 0;
 
@@ -12,23 +12,36 @@ namespace TallerAutomotriz.Datos
             get { return cantidad; }
         }
 
-        public void Enqueue(T elemento)
+        public void Enqueue(string elemento)
         {
             if (cantidad == elementos.Length)
             {
                 AumentarEspacio();
             }
 
-            int indiceFinal = (inicio + cantidad) % elementos.Length;
+            int indiceFinal = inicio + cantidad;
+
+            if (indiceFinal >= elementos.Length)
+            {
+                indiceFinal = indiceFinal - elementos.Length;
+            }
+
             elementos[indiceFinal] = elemento;
             cantidad++;
         }
 
-        public T Dequeue()
+        public string Dequeue()
         {
-            T elemento = elementos[inicio];
-            elementos[inicio] = default!;
-            inicio = (inicio + 1) % elementos.Length;
+            string elemento = elementos[inicio];
+            elementos[inicio] = "";
+
+            inicio++;
+
+            if (inicio == elementos.Length)
+            {
+                inicio = 0;
+            }
+
             cantidad--;
 
             if (cantidad == 0)
@@ -39,19 +52,26 @@ namespace TallerAutomotriz.Datos
             return elemento;
         }
 
-        public T Peek()
+        public string Peek()
         {
             return elementos[inicio];
         }
 
-        public T[] ObtenerElementos()
+        public string[] ObtenerElementos()
         {
-            T[] resultado = new T[cantidad];
+            string[] resultado = new string[cantidad];
+            int indice = inicio;
 
             for (int i = 0; i < cantidad; i++)
             {
-                int indice = (inicio + i) % elementos.Length;
                 resultado[i] = elementos[indice];
+
+                indice++;
+
+                if (indice == elementos.Length)
+                {
+                    indice = 0;
+                }
             }
 
             return resultado;
@@ -59,15 +79,23 @@ namespace TallerAutomotriz.Datos
 
         private void AumentarEspacio()
         {
-            T[] elementosNuevos = new T[elementos.Length * 2];
+            string[] cajaVieja = elementos;
+            string[] cajaNueva = new string[elementos.Length * 2];
+            int indice = inicio;
 
             for (int i = 0; i < cantidad; i++)
             {
-                int indice = (inicio + i) % elementos.Length;
-                elementosNuevos[i] = elementos[indice];
+                cajaNueva[i] = cajaVieja[indice];
+
+                indice++;
+
+                if (indice == cajaVieja.Length)
+                {
+                    indice = 0;
+                }
             }
 
-            elementos = elementosNuevos;
+            elementos = cajaNueva;
             inicio = 0;
         }
     }

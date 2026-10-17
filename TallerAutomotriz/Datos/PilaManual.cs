@@ -1,9 +1,9 @@
 namespace TallerAutomotriz.Datos
 {
-    // Guarda elementos en orden LIFO y permite ver primero el mas reciente.
-    internal class PilaManual<T>
+    // Guarda operaciones en orden LIFO usando un arreglo.
+    internal class PilaManual
     {
-        private T[] elementos = new T[4];
+        private string[] elementos = new string[4];
         private int cantidad = 0;
 
         public int Count
@@ -11,7 +11,7 @@ namespace TallerAutomotriz.Datos
             get { return cantidad; }
         }
 
-        public void Push(T elemento)
+        public void Push(string elemento)
         {
             if (cantidad == elementos.Length)
             {
@@ -22,24 +22,24 @@ namespace TallerAutomotriz.Datos
             cantidad++;
         }
 
-        public T Pop()
+        public string Pop()
         {
-            int indiceSuperior = cantidad - 1;
-            T elemento = elementos[indiceSuperior];
-            elementos[indiceSuperior] = default!;
+            int posicionSuperior = cantidad - 1;
+            string elemento = elementos[posicionSuperior];
+            elementos[posicionSuperior] = "";
             cantidad--;
             return elemento;
         }
 
-        public T[] ObtenerElementos()
+        public string[] ObtenerElementos()
         {
-            T[] resultado = new T[cantidad];
-            int indiceResultado = 0;
+            string[] resultado = new string[cantidad];
+            int posicionResultado = 0;
 
             for (int i = cantidad - 1; i >= 0; i--)
             {
-                resultado[indiceResultado] = elementos[i];
-                indiceResultado++;
+                resultado[posicionResultado] = elementos[i];
+                posicionResultado++;
             }
 
             return resultado;
@@ -47,7 +47,7 @@ namespace TallerAutomotriz.Datos
 
         private void AumentarEspacio()
         {
-            T[] elementosNuevos = new T[elementos.Length * 2];
+            string[] elementosNuevos = new string[elementos.Length * 2];
 
             for (int i = 0; i < cantidad; i++)
             {

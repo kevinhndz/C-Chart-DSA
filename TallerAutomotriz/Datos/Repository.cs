@@ -10,9 +10,9 @@ namespace TallerAutomotriz.Datos
         public readonly List<ClienteVehiculo> registros = new List<ClienteVehiculo>();
         public readonly List<OrdenServicio> ordenes = new List<OrdenServicio>();
         // PilaManual conserva las operaciones con el orden LIFO.
-        public readonly PilaManual<string> historial = new PilaManual<string>();
+        public readonly PilaManual historial = new PilaManual();
         // ColaManual conserva las placas con el orden FIFO.
-        public readonly ColaManual<string> vehiculosEnFila = new ColaManual<string>();
+        public readonly ColaManual vehiculosEnFila = new ColaManual();
     }
 }
 
